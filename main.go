@@ -10,20 +10,23 @@ import (
 )
 
 func main() {
-	db, err := libs.ConnectToDatabase()
+	userDB, err := libs.ConnectToDatabase(libs.UserDBConfig) // Use libs.userDBConfig directly
 	if err != nil {
 		panic(err)
 	}
 
+	// todoDB, err := libs.ConnectToDatabase(libs.TodoDBConfig) // Use libs.todoDBConfig directly
+	// if err != nil {
+	// 	panic(err)
+	// }
+
 	app := fiber.New()
 	app.Use(cors.New())
-	app.Use(func(c *fiber.Ctx) error {
-		c.Locals("db", db)
-		return c.Next()
-	})
 
-	app.Get("/", handlers.HelloWorldHandler)
-	app.Post("/login", handlers.SearchUserHandler)
+	app.Post("/login", func(c *fiber.Ctx) error {
+		c.Locals("db", userDB)
+		return handlers.SearchUserHandler(c)
+	})
 
 	log.Fatal(app.Listen(":3000"))
 }

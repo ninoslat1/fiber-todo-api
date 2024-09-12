@@ -1,9 +1,18 @@
 package libs
 
-import "gorm.io/gorm"
+type ErrorMessage struct {
+	Message string
+}
 
-type User struct {
-	gorm.Model
-	Name     string
+type DatabaseConfig struct {
+	Host     string
+	Port     string
+	Username string
 	Password string
+	Database string
+}
+
+type UserDB struct {
+	UserCode string `gorm:"column:UserCode"`
+	Password string `gorm:"column:Password"`
 }
