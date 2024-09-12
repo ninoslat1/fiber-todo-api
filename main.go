@@ -5,6 +5,7 @@ import (
 	"fiber-api/libs"
 	"log"
 
+	"github.com/gofiber/contrib/swagger"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 )
@@ -22,6 +23,7 @@ func main() {
 
 	app := fiber.New()
 	app.Use(cors.New())
+	app.Use(swagger.New(libs.GetSwaggerConfig()))
 
 	app.Post("/login", func(c *fiber.Ctx) error {
 		c.Locals("db", userDB)
