@@ -1,17 +1,26 @@
 package libs
 
-var UserDBConfig = DatabaseConfig{
-	Host:     "localhost", // Replace with your user database details
-	Port:     "3306",
-	Username: "root",
-	Password: "",
-	Database: "mst",
-}
+import (
+	"os"
+)
 
-var TodoDBConfig = DatabaseConfig{
-	Host:     "localhost", // Replace with your to-do database details
-	Port:     "3306",
-	Username: "root", // Replace with actual credentials
-	Password: "",
-	Database: "todo",
+var UserDBConfig DatabaseConfig
+var TodoDBConfig DatabaseConfig
+
+func init() {
+	UserDBConfig = DatabaseConfig{
+		Host:     os.Getenv("USER_DB_HOST"),
+		Port:     os.Getenv("USER_DB_PORT"),
+		Username: os.Getenv("USER_DB_USERNAME"),
+		Password: os.Getenv("USER_DB_PASSWORD"),
+		Database: os.Getenv("USER_DB_NAME"),
+	}
+
+	TodoDBConfig = DatabaseConfig{
+		Host:     os.Getenv("TODO_DB_HOST"),
+		Port:     os.Getenv("TODO_DB_PORT"),
+		Username: os.Getenv("TODO_DB_USERNAME"),
+		Password: os.Getenv("TODO_DB_PASSWORD"),
+		Database: os.Getenv("TODO_DB_NAME"),
+	}
 }

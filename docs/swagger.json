@@ -1,8 +1,8 @@
 {
     "swagger": "2.0",
     "info": {
-      "title": "Your API Title",
-      "description": "Description of your API",
+      "title": "Todo API",
+      "description": "API Documentation for Todo App",
       "version": "1.0.0"
     },
     "host": "localhost:3000",
@@ -44,7 +44,7 @@
                   "message": {
                     "type": "string"
                   },
-                  "user": {
+                  "token": {
                     "type": "string"
                   }
                 }

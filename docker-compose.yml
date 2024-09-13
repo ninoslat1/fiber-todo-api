@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  todo-service:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    container_name: todo-service
+    volumes:
+      - ./docs:/root/docs
+    environment:
+      - USER_DB_HOST=${USER_DB_HOST}
+      - USER_DB_PORT=${USER_DB_PORT}
+      - USER_DB_USERNAME=${USER_DB_USERNAME}
+      - USER_DB_PASSWORD=${USER_DB_PASSWORD}
+      - USER_DB_NAME=${USER_DB_NAME}
+      - TODO_DB_NAME=${TODO_DB_NAME}
+      - APP_TOKEN=${APP_TOKEN}
+    ports:
+      - "3000:3000"
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
