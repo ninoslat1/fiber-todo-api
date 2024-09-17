@@ -10,13 +10,13 @@ services:
     volumes:
       - ./docs:/root/docs
     environment:
-      - USER_DB_HOST=${USER_DB_HOST}
-      - USER_DB_PORT=${USER_DB_PORT}
-      - USER_DB_USERNAME=${USER_DB_USERNAME}
-      - USER_DB_PASSWORD=${USER_DB_PASSWORD}
-      - USER_DB_NAME=${USER_DB_NAME}
-      - TODO_DB_NAME=${TODO_DB_NAME}
-      - APP_TOKEN=${APP_TOKEN}
+      - USER_DB_HOST=host.docker.internal
+      - USER_DB_PORT=3306
+      - USER_DB_USERNAME=root
+      - USER_DB_PASSWORD=
+      - USER_DB_NAME=mst
+      - TODO_DB_NAME=todo
+      - APP_TOKEN=my-token
     ports:
       - "3000:3000"
     extra_hosts:

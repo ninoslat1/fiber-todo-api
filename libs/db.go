@@ -2,12 +2,16 @@ package libs
 
 import (
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 var UserDBConfig DatabaseConfig
 var TodoDBConfig DatabaseConfig
 
 func init() {
+	godotenv.Load()
+
 	UserDBConfig = DatabaseConfig{
 		Host:     os.Getenv("USER_DB_HOST"),
 		Port:     os.Getenv("USER_DB_PORT"),
