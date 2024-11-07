@@ -16,3 +16,9 @@ type UserDB struct {
 	UserCode string `gorm:"column:UserCode"`
 	Password string `gorm:"column:Password"`
 }
+
+type Product struct {
+	ID         int16
+	Remark     string
+	FirstPrice int64
+}

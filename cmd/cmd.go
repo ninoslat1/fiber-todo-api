@@ -11,7 +11,7 @@ import (
 )
 
 func RunServer() {
-	userDB, err := libs.ConnectToDatabase(libs.UserDBConfig) // Use libs.userDBConfig directly
+	userDB, err := libs.ConnectToDatabase(libs.UserDBConfig)
 	if err != nil {
 		panic(err)
 	}
@@ -22,7 +22,11 @@ func RunServer() {
 	// }
 
 	app := fiber.New()
-	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "*",
+		AllowMethods: "GET,POST,PUT,DELETE,OPTIONS",
+		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+	}))
 	app.Use(swagger.New(libs.GetSwaggerConfig()))
 
 	app.Post("/login", func(c *fiber.Ctx) error {
@@ -30,5 +34,10 @@ func RunServer() {
 		return handlers.SearchUserHandler(c)
 	})
 
-	log.Fatal(app.Listen(":3000"))
+	app.Post("/product", libs.JWTMiddleware(), func(c *fiber.Ctx) error {
+		c.Locals("db", userDB)
+		return handlers.SearchProduct(c)
+	})
+
+	log.Fatal(app.Listen(":8888"))
 }

@@ -20,11 +20,11 @@ func init() {
 		Database: os.Getenv("USER_DB_NAME"),
 	}
 
-	TodoDBConfig = DatabaseConfig{
-		Host:     os.Getenv("TODO_DB_HOST"),
-		Port:     os.Getenv("TODO_DB_PORT"),
-		Username: os.Getenv("TODO_DB_USERNAME"),
-		Password: os.Getenv("TODO_DB_PASSWORD"),
-		Database: os.Getenv("TODO_DB_NAME"),
-	}
+	// TodoDBConfig = DatabaseConfig{
+	// 	Host:     os.Getenv("TODO_DB_HOST"),
+	// 	Port:     os.Getenv("TODO_DB_PORT"),
+	// 	Username: os.Getenv("TODO_DB_USERNAME"),
+	// 	Password: os.Getenv("TODO_DB_PASSWORD"),
+	// 	Database: os.Getenv("TODO_DB_NAME"),
+	// }
 }

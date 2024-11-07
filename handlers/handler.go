@@ -34,7 +34,7 @@ func SearchUserHandler(c *fiber.Ctx) error {
 
 	if result.Error != nil {
 		if result.Error == gorm.ErrRecordNotFound {
-			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
 				"message": "User not found or password incorrect",
 			})
 		}
@@ -45,9 +45,34 @@ func SearchUserHandler(c *fiber.Ctx) error {
 		})
 	}
 
-	// User found, you can add more logic here (e.g., generate token)
 	return c.JSON(fiber.Map{
 		"message": "Login successful",
 		"token":   t,
+	})
+}
+
+func SearchProduct(c *fiber.Ctx) error {
+
+	var product libs.UserDB
+	db := c.Locals("db").(*gorm.DB)
+	productname := c.FormValue("ProductName")
+	result := db.Table("product").Select([]string{"ID", "Remark, FirstPrice"}).Where("Remark = ?", productname).First(&product)
+
+	if result.Error != nil {
+		if result.Error == gorm.ErrRecordNotFound {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"message": "Product not found",
+			})
+		}
+
+		log.Printf("Error finding product: %v", result.Error)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"message": "Internal server error",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Product found",
+		"data":    product,
 	})
 }
